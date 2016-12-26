@@ -161,24 +161,6 @@ Updates a new bucket.
 }]
 ```
 
-## GoogleCloudStorage.stopObjectChangeNotifications
-Stop receiving object change notifications through this channel.
-
-| Field          | Type       | Description
-|----------------|------------|----------
-| accessToken    | credentials| Google Cloud Access Token
-| id             | String     | A UUID or similar unique string that identifies this channel.
-| resourceId     | String     | An opaque ID that identifies the resource being watched on this channel. Stable across different API versions.   
-
-## GoogleCloudStorage.deleteDefaultObjectAclEntry
-Permanently deletes the default object ACL entry for the specified entity on the specified bucket. 
-
-| Field          | Type       | Description
-|----------------|------------|----------
-| accessToken    | credentials| Google Cloud Access Token
-| bucket         | String     | Name of a bucket.
-| entity         | String     | The entity holding the permission. Can be user-`userId`, user-`emailAddress`, group-`groupId`, group-`emailAddress`, allUsers, or allAuthenticatedUsers.
-
 ## GoogleCloudStorage.getDefaultObjectAclEntry
 Returns the default object ACL entry for the specified entity on the specified bucket. 
 
@@ -459,28 +441,6 @@ Updates an object's metadata.
 | contentLanguage         | String     | Content-Language of the object data. 
 | contentType             | String     | Content-Type of the object data. If contentType is not specified, object downloads will be served as application/octet-stream. 
 | metadata                | JSON       | JSON Object. User-provided metadata, in key/value pairs.
-
-## GoogleCloudStorage.watchAllObjectsChanges
-Watch for changes on all objects in a bucket.
-
-| Field          | Type       | Description
-|----------------|------------|----------
-| accessToken    | credentials| Google Cloud Access Token
-| bucket         | String     | Name of the bucket in which to look for objects.
-| delimiter      | String     | Returns results in a directory-like mode. items will contain only objects whose names, aside from the prefix, do not contain delimiter. Objects whose names, aside from the prefix, contain delimiter will have their name, truncated after the delimiter, returned in prefixes. Duplicate prefixes are omitted.
-| maxResults     | Number     | Maximum number of items plus prefixes to return. As duplicate prefixes are omitted, fewer total results may be returned than requested. The default value of this parameter is 1,000 items.
-| pageToken      | String     | A previously-returned page token representing part of the larger set of results to view.
-| prefix         | String     | Filter results to objects whose names begin with this prefix.
-| projection     | String     | Set of properties to return. Defaults to full. Acceptable values are: `full`: Include all properties; `noAcl`: Omit the owner, acl property.
-| versions       | String     | If true, lists all versions of an object as distinct results. The default is false.
-| id             | String     | A UUID or similar unique string that identifies this channel.
-| resourceId     | String     | An opaque ID that identifies the resource being watched on this channel. Stable across different API versions.
-| resourceUri    | String     | A version-specific identifier for the watched resource.
-| token          | String     | An arbitrary string delivered to the target address with each notification delivered over this channel. Optional.
-| expiration     | String     | Date and time of notification channel expiration, expressed as a Unix timestamp, in milliseconds. Optional.
-| address        | String     | The address where notifications are delivered for this channel.
-| params         | JSON       | JSON Object. Additional parameters controlling delivery channel behavior. Optional.
-| payload        | Boolean    | A Boolean value to indicate whether payload is wanted. Optional.
 
 ## GoogleCloudStorage.deleteBucketAclEntry
 Permanently deletes the ACL entry for the specified entity on the specified bucket.

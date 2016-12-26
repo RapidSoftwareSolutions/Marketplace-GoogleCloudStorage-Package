@@ -420,7 +420,7 @@ module.exports.do = function(req, res){
                 }
             ], 
             'callbacks':[{'name':'error','info':'Error'}, {'name':'success','info':'Success'}]
-        }, {
+        }, /*{
             "name":"stopObjectChangeNotifications",
             "description": "Stop receiving object change notifications through this channel.",
             "args":[
@@ -468,7 +468,7 @@ module.exports.do = function(req, res){
                 }
             ], 
             'callbacks':[{'name':'error','info':'Error'}, {'name':'success','info':'Success'}]
-        }, {
+        },*/ {
             "name":"getDefaultObjectAclEntry",
             "description": "Returns the default object ACL entry for the specified entity on the specified bucket. ",
             "args":[
@@ -1554,7 +1554,7 @@ module.exports.do = function(req, res){
                 }
             ], 
             'callbacks':[{'name':'error','info':'Error'}, {'name':'success','info':'Success'}]
-        }, {
+        }, /*{
             "name":"watchAllObjectsChanges",
             "description": "Watch for changes on all objects in a bucket.",
             "args":[
@@ -1636,12 +1636,12 @@ module.exports.do = function(req, res){
                     info: "Date and time of notification channel expiration, expressed as a Unix timestamp, in milliseconds. Optional.",
                     required: false
                 },
-                /*{
-                    name: "type",
-                    type: "String",
-                    info: "",
-                    required: false
-                }, WEBHOOK*/
+                //{
+                //    name: "type",
+                //    type: "String",
+                //    info: "",
+                //    required: false
+                //},
                 {
                     name: "address",
                     type: "String",
@@ -1662,7 +1662,7 @@ module.exports.do = function(req, res){
                 }
             ], 
             'callbacks':[{'name':'error','info':'Error'}, {'name':'success','info':'Success'}]
-        }, {
+        },*/ {
             "name":"deleteBucketAclEntry",
             "description": "Permanently deletes the ACL entry for the specified entity on the specified bucket.",
             "args":[
