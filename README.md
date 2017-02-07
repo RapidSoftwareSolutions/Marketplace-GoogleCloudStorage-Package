@@ -1,3 +1,5 @@
+[![](https://scdn.rapidapi.com/RapidAPI_banner.png)](https://rapidapi.com/package/GoogleCloudStorage/functions?utm_source=RapidAPIGitHub_GoogleCloudFunctions&utm_medium=button&utm_content=RapidAPI_GitHub)
+
 # GoogleCloudStorage Package
 Store and retrieve any amount of data anytime.
 * Domain: cloud.google.com
