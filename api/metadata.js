@@ -72,7 +72,8 @@ module.exports.do = function(req, res){
                 },
                 {
                     name: "projection",
-                    type: "String",
+                    type: "Select",
+                    options: ["full","noAcl"],
                     info: "Set of properties to return. Defaults to `noAcl`. Acceptable values are: `full`: Include all properties.`noAcl`: Omit owner, acl and defaultObjectAcl properties.",
                     required: false
                 }
@@ -126,7 +127,8 @@ module.exports.do = function(req, res){
                 },
                 {
                     name: "projection",
-                    type: "String",
+                    type: "Select",
+                    options: ["full","noAcl"],
                     info: "Set of properties to return. Defaults to `noAcl`. Acceptable values are: `full`: Include all properties.`noAcl`: Omit owner, acl and defaultObjectAcl properties.",
                     required: false
                 },
@@ -240,7 +242,8 @@ module.exports.do = function(req, res){
                 },
                 {
                     name: "projection",
-                    type: "String",
+                    type: "Select",
+                    options: ["full","noAcl"],
                     info: "Set of properties to return. Defaults to `noAcl`. Acceptable values are: `full`: Include all properties.`noAcl`: Omit owner, acl and defaultObjectAcl properties.",
                     required: false
                 }
@@ -348,7 +351,8 @@ module.exports.do = function(req, res){
                 },
                 {
                     name: "projection",
-                    type: "String",
+                    type: "Select",
+                    options: ["full","noAcl"],
                     info: "Set of properties to return. Defaults to `noAcl`. Acceptable values are: `full`: Include all properties.`noAcl`: Omit owner, acl and defaultObjectAcl properties.",
                     required: false
                 },
@@ -516,7 +520,8 @@ module.exports.do = function(req, res){
                 },
                 {
                     name: "role",
-                    type: "String",
+                    type: "Select",
+                    options: ["OWNER","READER"],
                     info: "The access permission for the entity. Acceptable values are: `OWNER`, `READER`.",
                     required: true
                 }
@@ -576,7 +581,8 @@ module.exports.do = function(req, res){
                 },
                 {
                     name: "role",
-                    type: "String",
+                    type: "Select",
+                    options: ["OWNER","READER"],
                     info: "The access permission for the entity. Acceptable values are: OWNER, READER",
                     required: false
                 }
@@ -678,7 +684,8 @@ module.exports.do = function(req, res){
                 },
                 {
                     name: "role",
-                    type: "String",
+                    type: "Select",
+                    options: ["OWNER","READER"],
                     info: "The access permission for the entity. Acceptable values are: `OWNER`, `READER`.",
                     required: true
                 },
@@ -756,7 +763,8 @@ module.exports.do = function(req, res){
                 },
                 {
                     name: "role",
-                    type: "String",
+                    type: "Select",
+                    options: ["OWNER","READER"],
                     info: "The access permission for the entity. Acceptable values are: `OWNER`, `READER`.",
                     required: true
                 },
@@ -918,7 +926,8 @@ module.exports.do = function(req, res){
                 },
                 {
                     name: "projection",
-                    type: "String",
+                    type: "Select",
+                    options: ["full","noAcl"],
                     info: "Set of properties to return. Defaults to noAcl, unless the object resource specifies the acl property, when it defaults to full. Acceptable values are: `full`: Include all properties; `noAcl`: Omit the owner, acl property",
                     required: false
                 },
@@ -1044,7 +1053,8 @@ module.exports.do = function(req, res){
                 },
                 {
                     name: "projection",
-                    type: "String",
+                    type: "Select",
+                    options: ["full","noAcl"],
                     info: "Set of properties to return. Defaults to noAcl, unless the object resource specifies the acl property, when it defaults to full. Acceptable values are: `full`: Include all properties; `noAcl`: Omit the owner, acl property",
                     required: false
                 },
@@ -1146,7 +1156,8 @@ module.exports.do = function(req, res){
                 },
                 {
                     name: "projection",
-                    type: "String",
+                    type: "Select",
+                    options: ["full","noAcl"],
                     info: "Set of properties to return. Defaults to noAcl, unless the object resource specifies the acl property, when it defaults to full. Acceptable values are: `full`: Include all properties; `noAcl`: Omit the owner, acl property",
                     required: false
                 },
@@ -1248,7 +1259,8 @@ module.exports.do = function(req, res){
                 },
                 {
                     name: "projection",
-                    type: "String",
+                    type: "Select",
+                    options: ["full","noAcl"],
                     info: "Set of properties to return. Defaults to `noAcl`. Acceptable values are: `full`: Include all properties. `noAcl`: Omit the owner, acl property.",
                     required: false
                 },
@@ -1356,7 +1368,8 @@ module.exports.do = function(req, res){
                 },
                 {
                     name: "projection",
-                    type: "String",
+                    type: "Select",
+                    options: ["full","noAcl"],
                     info: "Set of properties to return. Defaults to noAcl, unless the object resource specifies the acl property, when it defaults to full. Acceptable values are: `full`: Include all properties; `noAcl`: Omit the owner, acl property",
                     required: false
                 },
@@ -1506,7 +1519,8 @@ module.exports.do = function(req, res){
                 },
                 {
                     name: "projection",
-                    type: "Number",
+                    type: "Select",
+                    options: ["full","noAcl"],
                     info: "Set of properties to return. Defaults to full. Acceptable values are: `full`: Include all properties; `noAcl`: Omit the owner, acl property.",
                     required: false
                 },
@@ -1596,7 +1610,8 @@ module.exports.do = function(req, res){
                 },
                 {
                     name: "projection",
-                    type: "String",
+                     type: "Select",
+                     options: ["full","noAcl"],
                     info: "Set of properties to return. Defaults to full. Acceptable values are: `full`: Include all properties; `noAcl`: Omit the owner, acl property.",
                     required: false
                 },
@@ -1734,7 +1749,8 @@ module.exports.do = function(req, res){
                 },
                 {
                     name: "role",
-                    type: "String",
+                    type: "Select",
+                    options: ["OWNER","READER","WRITER"],
                     info: "The access permission for the entity. Acceptable values are: `OWNER`, `READER`, `WRITER`",
                     required: true
                 }
@@ -1782,7 +1798,8 @@ module.exports.do = function(req, res){
                 },
                 {
                     name: "role",
-                    type: "String",
+                    type: "Select",
+                    options: ["OWNER","READER"],
                     info: "The access permission for the entity. Acceptable values are: `OWNER`, `READER`, `WRITER`.",
                     required: false
                 }
