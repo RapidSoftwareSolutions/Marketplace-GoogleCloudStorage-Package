@@ -1189,7 +1189,7 @@ module.exports.do = function(req, res){
                     name: "name",
                     type: "String",
                     info: "Name of the object.",
-                    required: false
+                    required: true
                 },
                 {
                     name: "predefinedAcl",
