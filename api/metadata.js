@@ -9,10 +9,43 @@ module.exports.do = function(req, res){
         'accounts': {
             'domain': 'cloud.google.com',
             'credentials': [
-                'accessToken'
+              'apiKey',
+          'apiSecret'
             ]
         },
-        'blocks': [{
+        'blocks': [
+          {
+                      "name":"getAccessToken",
+                      "description": "Generate access token",
+                      "args":[
+                          {
+                              name: "apiKey",
+                              type: "credentials",
+                              info: "Google Cloud api key",
+                              required: true
+                          },
+                          {
+                              name: "apiSecret",
+                              type: "credentials",
+                              info: "Google Cloud api secret",
+                              required: true
+                          },
+                          {
+                              name: "code",
+                              type: "String",
+                              info: "Code provided by user",
+                              required: true
+                          },
+                          {
+                              name: "redirectUrl",
+                              type: "String",
+                              info: "Redirect URL for your application",
+                              required: true
+                          }
+                      ],
+                      'callbacks':[{'name':'error','info':'Error'}, {'name':'success','info':'Success'}]
+                  },
+          {
             "name":"deleteBucket",
             "description": "Permanently deletes an empty bucket. ",
             "args":[
@@ -40,7 +73,7 @@ module.exports.do = function(req, res){
                     info: "If set, only deletes the bucket if its metageneration does not match this value.",
                     required: false
                 }
-            ], 
+            ],
             'callbacks':[{'name':'error','info':'Error'}, {'name':'success','info':'Success'}]
         }, {
             "name":"getSingleBucket",
@@ -77,7 +110,7 @@ module.exports.do = function(req, res){
                     info: "Set of properties to return. Defaults to `noAcl`. Acceptable values are: `full`: Include all properties.`noAcl`: Omit owner, acl and defaultObjectAcl properties.",
                     required: false
                 }
-            ], 
+            ],
             'callbacks':[{'name':'error','info':'Error'}, {'name':'success','info':'Success'}]
         }, {
             "name":"getBucketIamPolicy",
@@ -95,7 +128,7 @@ module.exports.do = function(req, res){
                     info: "Name of a bucket.",
                     required: true
                 }
-            ], 
+            ],
             'callbacks':[{'name':'error','info':'Error'}, {'name':'success','info':'Success'}]
         }, {
             "name":"createBucket",
@@ -115,13 +148,15 @@ module.exports.do = function(req, res){
                 },
                 {
                     name: "predefinedAcl",
-                    type: "String",
+                    type: "Select",
+                    options: ["authenticatedRead", "private", "projectPrivate", "publicRead", "publicReadWrite"],
                     info: "Apply a predefined set of access controls to this bucket. ",
                     required: false
                 },
                 {
                     name: "predefinedDefaultObjectAcl",
-                    type: "String",
+                    type: "Select",
+                    options:["authenticatedRead", "bucketOwnerFullControl", "bucketOwnerRead", "private", "projectPrivate", "publicRead"],
                     info: "Apply a predefined set of default object access controls to this bucket. ",
                     required: false
                 },
@@ -182,13 +217,15 @@ module.exports.do = function(req, res){
                 },
                 {
                     name: "storageClass",
-                    type: "String",
+                    type: "Select",
+                    options: ["MULTI_REGIONAL", "REGIONAL", "STANDARD", "NEARLINE", "COLDLINE", "DURABLE_REDUCED_AVAILABILITY"],
                     info: "The bucket's default storage class, used whenever no storageClass is specified for a newly-created object. This defines how objects in the bucket are stored and determines the SLA and the cost of storage. Values include MULTI_REGIONAL, REGIONAL, STANDARD, NEARLINE, COLDLINE, and DURABLE_REDUCED_AVAILABILITY. If this value is not specified when the bucket is created, it will default to STANDARD. For more information, see storage classes. ",
                     required: false
                 },
                 {
                     name: "enableVersioning",
-                    type: "Boolean",
+                    type: "Select",
+                    options: ["true", "false"],
                     info: "While set to true, versioning is fully enabled for this bucket.",
                     required: false
                 },
@@ -204,7 +241,7 @@ module.exports.do = function(req, res){
                     info: "If the requested object path is missing, and any mainPageSuffix object is missing, if applicable, the service will return the named object from this bucket as the content for a 404 Not Found result.   ",
                     required: false
                 }
-            ], 
+            ],
             'callbacks':[{'name':'error','info':'Error'}, {'name':'success','info':'Success'}]
         }, {
             "name":"getBuckets",
@@ -224,7 +261,7 @@ module.exports.do = function(req, res){
                 },
                 {
                     name: "maxResults",
-                    type: "String",
+                    type: "Number",
                     info: "Maximum number of buckets to return.",
                     required: false
                 },
@@ -247,7 +284,7 @@ module.exports.do = function(req, res){
                     info: "Set of properties to return. Defaults to `noAcl`. Acceptable values are: `full`: Include all properties.`noAcl`: Omit owner, acl and defaultObjectAcl properties.",
                     required: false
                 }
-            ], 
+            ],
             'callbacks':[{'name':'error','info':'Error'}, {'name':'success','info':'Success'}]
         }, {
             "name":"updateBucketIamPolicy",
@@ -283,7 +320,7 @@ module.exports.do = function(req, res){
                     info: "HTTP 1.1 Entity tag for the policy.",
                     required: false
                 }
-            ], 
+            ],
             'callbacks':[{'name':'error','info':'Error'}, {'name':'success','info':'Success'}]
         }, {
             "name":"testBucketIamPermissions",
@@ -307,7 +344,7 @@ module.exports.do = function(req, res){
                     info: "Permissions to test.",
                     required: true
                 }
-            ], 
+            ],
             'callbacks':[{'name':'error','info':'Error'}, {'name':'success','info':'Success'}]
         }, {
             "name":"updateBucket",
@@ -339,13 +376,15 @@ module.exports.do = function(req, res){
                 },
                 {
                     name: "predefinedAcl",
-                    type: "String",
+                    type: "Select",
+                    options: ["authenticatedRead", "private", "projectPrivate", "publicRead", "publicReadWrite"],
                     info: "Apply a predefined set of access controls to this bucket. ",
                     required: false
                 },
                 {
                     name: "predefinedDefaultObjectAcl",
-                    type: "String",
+                    type: "Select",
+                    options:["authenticatedRead", "bucketOwnerFullControl", "bucketOwnerRead", "private", "projectPrivate", "publicRead"],
                     info: "Apply a predefined set of default object access controls to this bucket. ",
                     required: false
                 },
@@ -400,13 +439,15 @@ module.exports.do = function(req, res){
                 },
                 {
                     name: "storageClass",
-                    type: "String",
+                    type: "Select",
+                    options: ["MULTI_REGIONAL", "REGIONAL", "STANDARD", "NEARLINE", "COLDLINE", "DURABLE_REDUCED_AVAILABILITY"],
                     info: "The bucket's default storage class, used whenever no storageClass is specified for a newly-created object. This defines how objects in the bucket are stored and determines the SLA and the cost of storage. Values include MULTI_REGIONAL, REGIONAL, STANDARD, NEARLINE, COLDLINE, and DURABLE_REDUCED_AVAILABILITY. If this value is not specified when the bucket is created, it will default to STANDARD. For more information, see storage classes. ",
                     required: false
                 },
                 {
                     name: "enableVersioning",
-                    type: "Boolean",
+                    type: "Select",
+                    options: ["true", "false"],
                     info: "While set to true, versioning is fully enabled for this bucket.",
                     required: false
                 },
@@ -422,7 +463,7 @@ module.exports.do = function(req, res){
                     info: "If the requested object path is missing, and any mainPageSuffix object is missing, if applicable, the service will return the named object from this bucket as the content for a 404 Not Found result.   ",
                     required: false
                 }
-            ], 
+            ],
             'callbacks':[{'name':'error','info':'Error'}, {'name':'success','info':'Success'}]
         }, /*{
             "name":"stopObjectChangeNotifications",
@@ -446,7 +487,7 @@ module.exports.do = function(req, res){
                     info: "An opaque ID that identifies the resource being watched on this channel. Stable across different API versions.   ",
                     required: false
                 }
-            ], 
+            ],
             'callbacks':[{'name':'error','info':'Error'}, {'name':'success','info':'Success'}]
         }, {
             "name":"deleteDefaultObjectAclEntry",
@@ -470,7 +511,7 @@ module.exports.do = function(req, res){
                     info: "The entity holding the permission. Can be user-`userId`, user-`emailAddress`, group-`groupId`, group-`emailAddress`, allUsers, or allAuthenticatedUsers.",
                     required: true
                 }
-            ], 
+            ],
             'callbacks':[{'name':'error','info':'Error'}, {'name':'success','info':'Success'}]
         },*/ {
             "name":"getDefaultObjectAclEntry",
@@ -486,15 +527,15 @@ module.exports.do = function(req, res){
                     name: "bucket",
                     type: "String",
                     info: "Name of a bucket.",
-                    required: false
+                    required: true
                 },
                 {
                     name: "entity",
                     type: "String",
                     info: "The entity holding the permission. Can be user-`userId`, user-`emailAddress`, group-`groupId`, group-`emailAddress`, allUsers, or allAuthenticatedUsers.",
-                    required: false
+                    required: true
                 }
-            ], 
+            ],
             'callbacks':[{'name':'error','info':'Error'}, {'name':'success','info':'Success'}]
         }, {
             "name":"createDefaultObjectAclEntry",
@@ -525,7 +566,7 @@ module.exports.do = function(req, res){
                     info: "The access permission for the entity. Acceptable values are: `OWNER`, `READER`.",
                     required: true
                 }
-            ], 
+            ],
             'callbacks':[{'name':'error','info':'Error'}, {'name':'success','info':'Success'}]
         }, {
             "name":"getDefaultObjectAllAclEntries",
@@ -555,7 +596,7 @@ module.exports.do = function(req, res){
                     info: "If present, only return default ACL listing if the bucket's current metageneration does not match the given value.",
                     required: false
                 }
-            ], 
+            ],
             'callbacks':[{'name':'error','info':'Error'}, {'name':'success','info':'Success'}]
         }, {
             "name":"updateDefaultObjectAclEntry",
@@ -586,7 +627,7 @@ module.exports.do = function(req, res){
                     info: "The access permission for the entity. Acceptable values are: OWNER, READER",
                     required: false
                 }
-            ], 
+            ],
             'callbacks':[{'name':'error','info':'Error'}, {'name':'success','info':'Success'}]
         }, {
             "name":"deleteObjectAclEntry",
@@ -622,7 +663,7 @@ module.exports.do = function(req, res){
                     info: "If present, selects a specific revision of this object (as opposed to the latest version, the default).",
                     required: false
                 }
-            ], 
+            ],
             'callbacks':[{'name':'error','info':'Error'}, {'name':'success','info':'Success'}]
         }, {
             "name":"getObjectAclEntry",
@@ -658,7 +699,7 @@ module.exports.do = function(req, res){
                     info: "If present, selects a specific revision of this object (as opposed to the latest version, the default).",
                     required: false
                 }
-            ], 
+            ],
             'callbacks':[{'name':'error','info':'Error'}, {'name':'success','info':'Success'}]
         }, {
             "name":"createObjectAclEntry",
@@ -701,7 +742,7 @@ module.exports.do = function(req, res){
                     info: "If present, selects a specific revision of this object (as opposed to the latest version, the default).",
                     required: false
                 }
-            ], 
+            ],
             'callbacks':[{'name':'error','info':'Error'}, {'name':'success','info':'Success'}]
         }, {
             "name":"getObjectAllAclEntries",
@@ -737,7 +778,7 @@ module.exports.do = function(req, res){
                     info: "If present, selects a specific revision of this object (as opposed to the latest version, the default).",
                     required: false
                 }
-            ], 
+            ],
             'callbacks':[{'name':'error','info':'Error'}, {'name':'success','info':'Success'}]
         }, {
             "name":"updateObjectAclEntry",
@@ -780,7 +821,7 @@ module.exports.do = function(req, res){
                     info: "If present, selects a specific revision of this object (as opposed to the latest version, the default).",
                     required: false
                 }
-            ], 
+            ],
             'callbacks':[{'name':'error','info':'Error'}, {'name':'success','info':'Success'}]
         }, {
             "name":"composeObjects",
@@ -806,19 +847,20 @@ module.exports.do = function(req, res){
                 },
                 {
                     name: "destinationPredefinedAcl",
-                    type: "String",
+                    type: "Select",
+                    options:["authenticatedRead", "bucketOwnerFullControl", "bucketOwnerRead", "private", "projectPrivate", "publicRead"],
                     info: "Apply a predefined set of access controls to the destination object. ",
-                    required: true
+                    required: false
                 },
                 {
                     name: "ifGenerationMatch",
-                    type: "String",
+                    type: "Number",
                     info: "Makes the operation conditional on whether the object's current generation matches the given value.",
                     required: false
                 },
                 {
                     name: "ifMetagenerationMatch",
-                    type: "String",
+                    type: "Number",
                     info: "Makes the operation conditional on whether the object's current metageneration matches the given value.",
                     required: false
                 },
@@ -832,9 +874,9 @@ module.exports.do = function(req, res){
                     name: "sourceObjects",
                     type: "JSON",
                     info: "The list of source objects that will be concatenated into a single object.",
-                    required: false
+                    required: true
                 }
-            ], 
+            ],
             'callbacks':[{'name':'error','info':'Error'}, {'name':'success','info':'Success'}]
         }, {
             "name":"copyObject",
@@ -872,7 +914,8 @@ module.exports.do = function(req, res){
                 },
                 {
                     name: "destinationPredefinedAcl",
-                    type: "String",
+                    type: "Select",
+                    options:["authenticatedRead", "bucketOwnerFullControl", "bucketOwnerRead", "private", "projectPrivate", "publicRead"],
                     info: "Apply a predefined set of access controls to the destination object. ",
                     required: false
                 },
@@ -943,7 +986,7 @@ module.exports.do = function(req, res){
                     info: "An object resource. ",
                     required: false
                 }
-            ], 
+            ],
             'callbacks':[{'name':'error','info':'Error'}, {'name':'success','info':'Success'}]
         }, {
             "name":"deleteObject",
@@ -997,7 +1040,7 @@ module.exports.do = function(req, res){
                     info: "Makes the operation conditional on whether the object's current metageneration does not match the given value.",
                     required: false
                 }
-            ], 
+            ],
             'callbacks':[{'name':'error','info':'Error'}, {'name':'success','info':'Success'}]
         }, {
             "name":"getSingleObject",
@@ -1058,7 +1101,7 @@ module.exports.do = function(req, res){
                     info: "Set of properties to return. Defaults to noAcl, unless the object resource specifies the acl property, when it defaults to full. Acceptable values are: `full`: Include all properties; `noAcl`: Omit the owner, acl property",
                     required: false
                 },
-            ], 
+            ],
             'callbacks':[{'name':'error','info':'Error'}, {'name':'success','info':'Success'}]
         }, {
             "name":"getObjectIamPolicy",
@@ -1088,7 +1131,7 @@ module.exports.do = function(req, res){
                     info: "If present, selects a specific revision of this object (as opposed to the latest version, the default).",
                     required: false
                 }
-            ], 
+            ],
             'callbacks':[{'name':'error','info':'Error'}, {'name':'success','info':'Success'}]
         }, {
             "name":"createObject",
@@ -1150,7 +1193,8 @@ module.exports.do = function(req, res){
                 },
                 {
                     name: "predefinedAcl",
-                    type: "String",
+                    type: "Select",
+                    options:["authenticatedRead", "bucketOwnerFullControl", "bucketOwnerRead", "private", "projectPrivate", "publicRead"],
                     info: "Apply a predefined set of access controls to this object. ",
                     required: false
                 },
@@ -1215,7 +1259,7 @@ module.exports.do = function(req, res){
                     info: "Storage class of the object.",
                     required: false
                 }
-            ], 
+            ],
             'callbacks':[{'name':'error','info':'Error'}, {'name':'success','info':'Success'}]
         }, {
             "name":"getObjects",
@@ -1241,7 +1285,7 @@ module.exports.do = function(req, res){
                 },
                 {
                     name: "maxResults",
-                    type: "String",
+                    type: "Number",
                     info: "Maximum number of items plus prefixes to return. As duplicate prefixes are omitted, fewer total results may be returned than requested. The default value of this parameter is 1,000 items.",
                     required: false
                 },
@@ -1266,11 +1310,12 @@ module.exports.do = function(req, res){
                 },
                 {
                     name: "versions",
-                    type: "String",
+                    type: "Select",
+                    options: ["true", "false"],
                     info: "If true, lists all versions of an object as distinct results. The default is false.",
                     required: false
                 }
-            ], 
+            ],
             'callbacks':[{'name':'error','info':'Error'}, {'name':'success','info':'Success'}]
         }, {
             "name":"rewriteObject",
@@ -1291,7 +1336,7 @@ module.exports.do = function(req, res){
                 {
                     name: "destinationObject",
                     type: "String",
-                    info: "Name of the new object. Required when the object metadata is not otherwise provided. Overrides the object metadata's name value, if anню",
+                    info: "Name of the new object. Required when the object metadata is not otherwise provided. Overrides the object metadata's name value, if any",
                     required: true
                 },
                 {
@@ -1308,7 +1353,8 @@ module.exports.do = function(req, res){
                 },
                 {
                     name: "destinationPredefinedAcl",
-                    type: "String",
+                    type: "Select",
+                    options:["authenticatedRead", "bucketOwnerFullControl", "bucketOwnerRead", "private", "projectPrivate", "publicRead"],
                     info: "Apply a predefined set of access controls to the destination object. ",
                     required: false
                 },
@@ -1320,49 +1366,49 @@ module.exports.do = function(req, res){
                 },
                 {
                     name: "ifGenerationNotMatch",
-                    type: "String",
+                    type: "Number",
                     info: "Makes the operation conditional on whether the destination object's current generation does not match the given value.",
                     required: false
                 },
                 {
                     name: "ifMetagenerationMatch",
-                    type: "String",
+                    type: "Number",
                     info: "Makes the operation conditional on whether the destination object's current metageneration matches the given value.",
                     required: false
                 },
                 {
                     name: "ifMetagenerationNotMatch",
-                    type: "String",
+                    type: "Number",
                     info: "Makes the operation conditional on whether the destination object's current metageneration does not match the given value.",
                     required: false
                 },
                 {
                     name: "ifSourceGenerationMatch",
-                    type: "String",
+                    type: "Number",
                     info: "Makes the operation conditional on whether the source object's generation matches the given value.",
                     required: false
                 },
                 {
                     name: "ifSourceGenerationNotMatch",
-                    type: "String",
+                    type: "Number",
                     info: "Makes the operation conditional on whether the source object's generation does not match the given value.",
                     required: false
                 },
                 {
                     name: "ifSourceMetagenerationMatch",
-                    type: "String",
+                    type: "Number",
                     info: "Makes the operation conditional on whether the source object's current metageneration matches the given value.",
                     required: false
                 },
                 {
                     name: "ifSourceMetagenerationNotMatch",
-                    type: "String",
+                    type: "Number",
                     info: "Makes the operation conditional on whether the source object's current metageneration does not match the given value.",
                     required: false
                 },
                 {
                     name: "maxBytesRewrittenPerCall",
-                    type: "String",
+                    type: "Number",
                     info: "The maximum number of bytes that will be rewritten per rewrite request. Most callers shouldn't need to specify this parameter - it is primarily in place to support testing. If specified the value must be an integral multiple of 1 MiB (1048576). Also, this only applies to requests where the source and destination span locations and/or storage classes. Finally, this value must not change across rewrite calls else you'll get an error that the rewriteToken is invalid.",
                     required: false
                 },
@@ -1391,7 +1437,7 @@ module.exports.do = function(req, res){
                     info: "If present, selects a specific revision of the source object (as opposed to the latest version, the default).",
                     required: false
                 }
-            ], 
+            ],
             'callbacks':[{'name':'error','info':'Error'}, {'name':'success','info':'Success'}]
         }, {
             "name":"updateObjectIamPolicy",
@@ -1421,7 +1467,7 @@ module.exports.do = function(req, res){
                     info: "If present, selects a specific revision of this object (as opposed to the latest version, the default).",
                     required: false
                 }
-            ], 
+            ],
             'callbacks':[{'name':'error','info':'Error'}, {'name':'success','info':'Success'}]
         }, {
             "name":"testObjectIamPermissions",
@@ -1457,7 +1503,7 @@ module.exports.do = function(req, res){
                     info: "If present, selects a specific revision of this object (as opposed to the latest version, the default).",
                     required: false
                 }
-            ], 
+            ],
             'callbacks':[{'name':'error','info':'Error'}, {'name':'success','info':'Success'}]
         }, {
             "name":"updateObject",
@@ -1566,7 +1612,7 @@ module.exports.do = function(req, res){
                     info: "User-provided metadata, in key/value pairs.",
                     required: false
                 }
-            ], 
+            ],
             'callbacks':[{'name':'error','info':'Error'}, {'name':'success','info':'Success'}]
         }, /*{
             "name":"watchAllObjectsChanges",
@@ -1672,10 +1718,10 @@ module.exports.do = function(req, res){
                 {
                     name: "payload",
                     type: "Boolean",
-                    info: "A Boolean value to indicate whether payload is wanted. Optional.",   
+                    info: "A Boolean value to indicate whether payload is wanted. Optional.",
                     required: false
                 }
-            ], 
+            ],
             'callbacks':[{'name':'error','info':'Error'}, {'name':'success','info':'Success'}]
         },*/ {
             "name":"deleteBucketAclEntry",
@@ -1699,7 +1745,7 @@ module.exports.do = function(req, res){
                     info: "The entity holding the permission. Can be user-`userId`, user-`emailAddress`, group-`groupId`, group-`emailAddress`, allUsers, or allAuthenticatedUsers.",
                     required: true
                 }
-            ], 
+            ],
             'callbacks':[{'name':'error','info':'Error'}, {'name':'success','info':'Success'}]
         }, {
             "name":"getBucketAclEntry",
@@ -1723,7 +1769,7 @@ module.exports.do = function(req, res){
                     info: "The entity holding the permission. Can be user-`userId`, user-`emailAddress`, group-`groupId`, group-`emailAddress`, allUsers, or allAuthenticatedUsers.",
                     required: true
                 }
-            ], 
+            ],
             'callbacks':[{'name':'error','info':'Error'}, {'name':'success','info':'Success'}]
         }, {
             "name":"createBucketAclEntry",
@@ -1750,11 +1796,11 @@ module.exports.do = function(req, res){
                 {
                     name: "role",
                     type: "Select",
-                    options: ["OWNER","READER","WRITER"],
-                    info: "The access permission for the entity. Acceptable values are: `OWNER`, `READER`, `WRITER`",
+                    options: ["OWNER","READER"],
+                    info: "The access permission for the entity. Acceptable values are: `OWNER`, `READER`",
                     required: true
                 }
-            ], 
+            ],
             'callbacks':[{'name':'error','info':'Error'}, {'name':'success','info':'Success'}]
         }, {
             "name":"getBucketAllAclEntries",
@@ -1772,7 +1818,7 @@ module.exports.do = function(req, res){
                     info: "Name of a bucket.",
                     required: true
                 }
-            ], 
+            ],
             'callbacks':[{'name':'error','info':'Error'}, {'name':'success','info':'Success'}]
         }, {
             "name":"updateBucketAclEntry",
@@ -1800,10 +1846,10 @@ module.exports.do = function(req, res){
                     name: "role",
                     type: "Select",
                     options: ["OWNER","READER"],
-                    info: "The access permission for the entity. Acceptable values are: `OWNER`, `READER`, `WRITER`.",
+                    info: "The access permission for the entity. Acceptable values are: `OWNER`, `READER`.",
                     required: false
                 }
-            ], 
+            ],
             'callbacks':[{'name':'error','info':'Error'}, {'name':'success','info':'Success'}]
         }]
     })

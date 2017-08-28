@@ -3,17 +3,14 @@
 # GoogleCloudStorage Package
 Store and retrieve any amount of data anytime.
 * Domain: cloud.google.com
-* Credentials: accessToken
+* Credentials: apiKey, apiSecret
 
-## How to get credentials:
-0. Install [gcloud SDK for your system](https://cloud.google.com/sdk/)
-1. Go to [google developer console](https://console.developers.google.com)
-2. Create new project, enable NL API and billing for your project
-3. Go to credentials section > Service account key
-4. Select 'App Engine default ...' as Service Account, click `create` and save it
-5. Run `gcloud auth activate-service-account --key-file=/path/to/key/file.json`
-6. Run `gcloud auth print-access-token`
-7. Copy and save your `access token`
+## How to get `apiKey`:
+ 0. [Go to the projects page](https://console.cloud.google.com/iam-admin/projects)
+ 1. Select or create a Cloud Platform Console project.
+ 2. [Enable billing](https://support.google.com/cloud/answer/6293499#enable-billing) for your project.
+ 3. Click ***Continue*** to enable the Translate API and any related services.
+ 4. On the ***Credentials*** page, get an ***API key*** (select Browser key when prompted). _Note: If you have an existing API key, you can use that key._
 
 
 ## Custom datatypes:
@@ -25,6 +22,15 @@ Store and retrieve any amount of data anytime.
  |Select|String with predefined values|```sample```
  |Array|Array of objects|```[{"Second name":"123","Age":"12","Photo":"sdf","Draft":"sdfsdf"},{"name":"adi","Second name":"bla","Age":"4","Photo":"asfserwe","Draft":"sdfsdf"}] ```
 
+ ## GoogleCloudStorage.getAccessToken
+ Generate access token
+
+ | Field                | Type       | Description
+ |----------------------|------------|----------
+ | apiKey          | credentials| Google Cloud apiKey
+ | apiSecret          | credentials| Google Cloud apiSecret
+ | code          | String| Code provided by user
+ | redirectUrl          | String| Redirect URL for your application
 
 ## GoogleCloudStorage.deleteBucket
 Permanently deletes an empty bucket.
@@ -85,7 +91,7 @@ Retrieves a list of buckets for a given project.
 |------------|------------|----------
 | accessToken| credentials| Google Cloud Access Token
 | project    | String     | A valid API project identifier.
-| maxResults | String     | Maximum number of buckets to return.
+| maxResults | Number     | Maximum number of buckets to return.
 | pageToken  | String     | A previously-returned page token representing part of the larger set of results to view.
 | prefix     | String     | Filter results to buckets whose names begin with this prefix.
 | projection | Select     | Set of properties to return. Defaults to `noAcl`. Acceptable values are: `full`: Include all properties.`noAcl`: Omit owner, acl and defaultObjectAcl properties.
@@ -340,7 +346,7 @@ Retrieves a list of objects matching the criteria.
 | accessToken| credentials| Google Cloud Access Token
 | bucket     | String     | Name of the bucket in which to look for objects.
 | delimiter  | String     | Returns results in a directory-like mode. items will contain only objects whose names, aside from the prefix, do not contain delimiter. Objects whose names, aside from the prefix, contain delimiter will have their name, truncated after the delimiter, returned in prefixes. Duplicate prefixes are omitted.
-| maxResults | String     | Maximum number of items plus prefixes to return. As duplicate prefixes are omitted, fewer total results may be returned than requested. The default value of this parameter is 1,000 items.
+| maxResults | Number     | Maximum number of items plus prefixes to return. As duplicate prefixes are omitted, fewer total results may be returned than requested. The default value of this parameter is 1,000 items.
 | pageToken  | String     | A previously-returned page token representing part of the larger set of results to view.
 | prefix     | String     | Filter results to objects whose names begin with this prefix.
 | projection | Select     | Set of properties to return. Defaults to `noAcl`. Acceptable values are: `full`: Include all properties. `noAcl`: Omit the owner, acl property.
@@ -353,19 +359,19 @@ Rewrites a source object to a destination object. Optionally overrides metadata.
 |-------------------------------|------------|----------
 | accessToken                   | credentials| Google Cloud Access Token
 | destinationBucket             | String     | Name of the bucket in which to store the new object. Overrides the provided object metadata's bucket value, if any.
-| destinationObject             | String     | Name of the new object. Required when the object metadata is not otherwise provided. Overrides the object metadata's name value, if anню
+| destinationObject             | String     | Name of the new object. Required when the object metadata is not otherwise provided. Overrides the object metadata's name value, if any
 | sourceBucket                  | String     | Name of the bucket in which to find the source object.
 | sourceObject                  | String     | Name of the source object.
 | destinationPredefinedAcl      | String     | Apply a predefined set of access controls to the destination object.
 | ifGenerationMatch             | Number     | Makes the operation conditional on whether the destination object's current generation matches the given value.
-| ifGenerationNotMatch          | String     | Makes the operation conditional on whether the destination object's current generation does not match the given value.
-| ifMetagenerationMatch         | String     | Makes the operation conditional on whether the destination object's current metageneration matches the given value.
-| ifMetagenerationNotMatch      | String     | Makes the operation conditional on whether the destination object's current metageneration does not match the given value.
-| ifSourceGenerationMatch       | String     | Makes the operation conditional on whether the source object's generation matches the given value.
-| ifSourceGenerationNotMatch    | String     | Makes the operation conditional on whether the source object's generation does not match the given value.
-| ifSourceMetagenerationMatch   | String     | Makes the operation conditional on whether the source object's current metageneration matches the given value.
-| ifSourceMetagenerationNotMatch| String     | Makes the operation conditional on whether the source object's current metageneration does not match the given value.
-| maxBytesRewrittenPerCall      | String     | The maximum number of bytes that will be rewritten per rewrite request. Most callers shouldn't need to specify this parameter - it is primarily in place to support testing. If specified the value must be an integral multiple of 1 MiB (1048576). Also, this only applies to requests where the source and destination span locations and/or storage classes. Finally, this value must not change across rewrite calls else you'll get an error that the rewriteToken is invalid.
+| ifGenerationNotMatch          | Number     | Makes the operation conditional on whether the destination object's current generation does not match the given value.
+| ifMetagenerationMatch         | Number     | Makes the operation conditional on whether the destination object's current metageneration matches the given value.
+| ifMetagenerationNotMatch      | Number     | Makes the operation conditional on whether the destination object's current metageneration does not match the given value.
+| ifSourceGenerationMatch       | Number     | Makes the operation conditional on whether the source object's generation matches the given value.
+| ifSourceGenerationNotMatch    | Number     | Makes the operation conditional on whether the source object's generation does not match the given value.
+| ifSourceMetagenerationMatch   | Number     | Makes the operation conditional on whether the source object's current metageneration matches the given value.
+| ifSourceMetagenerationNotMatch| Number     | Makes the operation conditional on whether the source object's current metageneration does not match the given value.
+| maxBytesRewrittenPerCall      | Number     | The maximum number of bytes that will be rewritten per rewrite request. Most callers shouldn't need to specify this parameter - it is primarily in place to support testing. If specified the value must be an integral multiple of 1 MiB (1048576). Also, this only applies to requests where the source and destination span locations and/or storage classes. Finally, this value must not change across rewrite calls else you'll get an error that the rewriteToken is invalid.
 | projection                    | Select     | Set of properties to return. Defaults to noAcl, unless the object resource specifies the acl property, when it defaults to full. Acceptable values are: `full`: Include all properties; `noAcl`: Omit the owner, acl property
 | rewriteToken                  | String     | Include this field (from the previous rewrite response) on each rewrite request after the first one, until the rewrite response 'done' flag is true. Calls that provide a rewriteToken can omit all other request fields, but if included those fields must match the values provided in the first rewrite request.
 | sourceGeneration              | String     | If present, selects a specific revision of the source object (as opposed to the latest version, the default).
@@ -441,7 +447,7 @@ Creates a new ACL entry on the specified bucket.
 | accessToken| credentials| Google Cloud Access Token
 | bucket     | String     | Name of a bucket.
 | entity     | String     | The entity holding the permission. Can be user-`userId`, user-`emailAddress`, group-`groupId`, group-`emailAddress`, allUsers, or allAuthenticatedUsers.
-| role       | Select     | The access permission for the entity. Acceptable values are: `OWNER`, `READER`, `WRITER`
+| role       | Select     | The access permission for the entity. Acceptable values are: `OWNER`, `READER`
 
 ## GoogleCloudStorage.getBucketAllAclEntries
 Retrieves ACL entries on a specified bucket.
@@ -459,4 +465,4 @@ Updates an ACL entry on the specified bucket.
 | accessToken| credentials| Google Cloud Access Token
 | bucket     | String     | Name of a bucket.
 | entity     | String     | The entity holding the permission. Can be user-`userId`, user-`emailAddress`, group-`groupId`, group-`emailAddress`, allUsers, or allAuthenticatedUsers.
-| role       | Select     | The access permission for the entity. Acceptable values are: `OWNER`, `READER`, `WRITER`.
+| role       | Select     | The access permission for the entity. Acceptable values are: `OWNER`, `READER`.
